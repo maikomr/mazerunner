@@ -47,7 +47,7 @@ public class AdjacencyListGraphTest {
 		this.graph.addEdge(new Node<>('d'), new Node<>('b'));
 		
 		int expectedNodeDegree = 4;
-		int actualNodeDegree = graph.getNode('b').getDegree();
+		int actualNodeDegree = graph.findNode('b').getDegree();
 		
 		assertEquals(expectedNodeDegree, actualNodeDegree);
 	}

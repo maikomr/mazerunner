@@ -18,7 +18,12 @@ public class AdjacencyListGraph<E> {
 		}
 	}
 	
-	public Node<E> getNode(E value) {
+	/**
+	 * Returns the Node containing the input value.
+	 * @param value is the criteria for searching the node.
+	 * @return The the node found in this graph, otherwise a null value.
+	 */
+	public Node<E> findNode(E value) {
 		for(Node<E> node: this.nodes) {
 			if(node.getValue() == value)
 				return node;
