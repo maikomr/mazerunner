@@ -51,4 +51,9 @@ public class Node<T> {
 	public List<Node<T>> getNeighbors() {
 		return this.neighbors;
 	}
+
+	public boolean equals(Object obj) {
+		return obj instanceof Node<?>
+				&& this.value.equals(((Node<?>) obj).value);
+	}
 }
