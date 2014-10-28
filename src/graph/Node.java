@@ -11,7 +11,7 @@ public class Node<T> {
 	public Node(T value) {
 		super();
 		this.value = value;
-		this.neighbors = new ArrayList<Node<T>>();
+		this.neighbors = new ArrayList<>();
 	}
 
 	private String neighborsToString() {
@@ -30,6 +30,10 @@ public class Node<T> {
 	@Override
 	public String toString() {
 		return String.valueOf(this.value) + neighborsToString();
+	}
+	
+	public T getValue() {
+		return this.value;
 	}
 
 	public int getDegree() {

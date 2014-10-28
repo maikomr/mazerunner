@@ -11,7 +11,7 @@ public class NodeTest {
 
 	@Before
 	public void setUp() throws Exception {
-		this.node = new Node<Character>('a');
+		this.node = new Node<>('a');
 	}
 
 	@After

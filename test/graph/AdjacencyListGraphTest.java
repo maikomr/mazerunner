@@ -37,5 +37,19 @@ public class AdjacencyListGraphTest {
 		
 		assertEquals(expectedGraphOrder, graph.getOrder());
 	}
+	
+	@Test
+	public void eachNodeShouldAddAdjacent() {
+		this.graph.addEdge(new Node<>('b'), new Node<>('a'));
+		this.graph.addEdge(new Node<>('c'), new Node<>('b'));
+		this.graph.addEdge(new Node<>('b'), new Node<>('b'));
+		this.graph.addEdge(new Node<>('d'), new Node<>('a'));
+		this.graph.addEdge(new Node<>('d'), new Node<>('b'));
+		
+		int expectedNodeDegree = 4;
+		int actualNodeDegree = graph.getNode('b').getDegree();
+		
+		assertEquals(expectedNodeDegree, actualNodeDegree);
+	}
 
 }
