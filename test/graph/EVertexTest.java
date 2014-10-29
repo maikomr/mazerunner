@@ -60,8 +60,8 @@ public class EVertexTest {
 		EVertex<Character> b = new EVertex<Character>('b');
 		b.addAdjacent(vertex);
 
-		Edge e1 = vertex.getNeighbors().get(0);
-		Edge e2 = b.getNeighbors().get(0);
+		Edge<Character> e1 = vertex.getNeighbors().get(0);
+		Edge<Character> e2 = b.getNeighbors().get(0);
 
 		assertEquals(e1, e2);
 	}

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class EVertex<T> {
 
-	private List<Edge> edges;
+	private List<Edge<T>> edges;
 	private T value;
 	
 	public EVertex(T value) {
@@ -22,11 +22,11 @@ public class EVertex<T> {
 	}
 
 	public boolean addAdjacent(EVertex<T> adjacent) {
-		Edge edge = new Edge(this, adjacent);
+		Edge<T> edge = new Edge<>(this, adjacent);
 		return this.edges.add(edge) && adjacent.edges.add(edge);
 	}
 
-	public List<Edge> getNeighbors() {
+	public List<Edge<T>> getNeighbors() {
 		return this.edges;
 	}
 	
@@ -37,5 +37,9 @@ public class EVertex<T> {
 	public boolean equals(Object obj) {
 		return obj instanceof EVertex
 				&& ((EVertex<?>)obj).value == this.value;
+	}
+
+	public EVertex<T> moveTo(Edge<T> edge) {
+		return edge.getA() == this ? edge.getB() : edge.getA();
 	}
 }

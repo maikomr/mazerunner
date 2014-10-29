@@ -104,8 +104,8 @@ public class EulerianGraphTest {
 		assertTrue(eGraph.addEdge(a, b));
 		assertTrue(eGraph.addEdge(b, a));
 		
-		Edge a1 = a.getNeighbors().get(0);
-		Edge a2 = a.getNeighbors().get(1);
+		Edge<Character> a1 = a.getNeighbors().get(0);
+		Edge<Character> a2 = a.getNeighbors().get(1);
 		
 		assertNotEquals(a1, a2);
 	}
@@ -118,11 +118,11 @@ public class EulerianGraphTest {
 		assertTrue(eGraph.addEdge(a, b));
 		assertTrue(eGraph.addEdge(b, a));
 		
-		Edge a1 = a.getNeighbors().get(0);
-		Edge a2 = a.getNeighbors().get(1);
+		Edge<Character> a1 = a.getNeighbors().get(0);
+		Edge<Character> a2 = a.getNeighbors().get(1);
 		
-		Edge b1 = b.getNeighbors().get(0);
-		Edge b2 = b.getNeighbors().get(1);
+		Edge<Character> b1 = b.getNeighbors().get(0);
+		Edge<Character> b2 = b.getNeighbors().get(1);
 		
 		assertEquals(a1, b1);
 		assertEquals(a2, b2);
@@ -132,7 +132,7 @@ public class EulerianGraphTest {
 	public void shouldReadFromFile() {
 		eGraph = GraphFactory.readEulerianGraphFromFile("examples/eulerianCycles.txt");
 		
-		int expectedSize = 9;
+		int expectedSize = 7;
 		int actualSize = eGraph.E();
 		
 		assertEquals(expectedSize, actualSize);
@@ -155,5 +155,19 @@ public class EulerianGraphTest {
 		eGraph = GraphFactory.readEulerianGraphFromFile("examples/eulerianPath.txt");
 		
 		assertTrue(eGraph.isEulerian());
+	}
+	
+	@Test
+	public void shouldFindEulerianCycles() {
+		eGraph = GraphFactory.readEulerianGraphFromFile("examples/eulerianCycles.txt");
+		
+		eGraph.findEulerianPaths();
+	}
+	
+	@Test
+	public void shouldFindEulerianCyclesWithinMultigraph() {
+		eGraph = GraphFactory.readEulerianGraphFromFile("examples/eulerianCyclesMultigraph.txt");
+		
+		eGraph.findEulerianPaths();
 	}
 }

@@ -2,6 +2,7 @@ package graph;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class EulerianGraph<T> {
 
@@ -50,7 +51,7 @@ public class EulerianGraph<T> {
 		}
 		return false;
 	}
-	
+
 	private boolean addEdge(T a, T b) {
 		EVertex<T> thisA = findVertex(a);
 		EVertex<T> thisB = findVertex(b);
@@ -62,10 +63,13 @@ public class EulerianGraph<T> {
 	}
 
 	/**
-	 * Adds a new edge from vertex a to vertex b
- 	 * if some of them is not stored then will be added.
-	 * @param a vertex a
-	 * @param b vertex b
+	 * Adds a new edge from vertex a to vertex b if some of them is not stored
+	 * then will be added.
+	 * 
+	 * @param a
+	 *            vertex a
+	 * @param b
+	 *            vertex b
 	 * @return true if the graph could add the connection
 	 */
 	public boolean addEdge(EVertex<T> a, EVertex<T> b) {
@@ -76,9 +80,54 @@ public class EulerianGraph<T> {
 
 	public EVertex<T> findVertex(T value) {
 		for (EVertex<T> vertex : this.vertices) {
-			if(vertex.getValue() == value)
+			if (vertex.getValue() == value)
 				return vertex;
 		}
 		return null;
+	}
+
+	public void findEulerianPaths() {
+		if (!isEulerian()) {
+			System.out.println("The graph does not have eulerian path");
+			return;
+		} else {
+			Stack<EVertex<T>> path = new Stack<>();
+			Stack<Edge<T>> visited = new Stack<>();
+			EVertex<T> ini = this.vertices.get(0);
+			path.push(ini);
+			findEulerianPaths(path, visited, ini, 0, this.E);
+		}
+	}
+
+	private void findEulerianPaths(Stack<EVertex<T>> path,
+			Stack<Edge<T>> visited, EVertex<T> actual, int index, int size) {
+
+		if (index < actual.getDegree()) {
+			Edge<T> actualEdge = actual.getNeighbors().get(index);
+			if (!visited.contains(actualEdge)) {
+				visited.push(actualEdge);
+				EVertex<T> neighbor = actual.moveTo(actualEdge);
+				path.push(neighbor);
+				findEulerianPaths(path, visited, neighbor, 0, size);
+			}
+			findEulerianPaths(path, visited, actual, index + 1, size);
+		}
+		else if(index == actual.getDegree()) {
+			if (visited.size() == size) {
+				printEulerianPath(path);
+			}
+			if(!path.isEmpty())
+				path.pop();
+			if(!visited.isEmpty())
+				visited.pop();
+		}
+	}
+
+	public void printEulerianPath(Stack<EVertex<T>> path) {
+		System.out.print("{");
+		for (EVertex<T> vertex : path) {
+			System.out.print(vertex.getValue() + " ");
+		}
+		System.out.println("}");
 	}
 }

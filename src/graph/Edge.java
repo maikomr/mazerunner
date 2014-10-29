@@ -1,20 +1,24 @@
 package graph;
 
-public class Edge {
+public class Edge<T> {
 	
-	private EVertex<?> a;
-	private EVertex<?> b;
+	private EVertex<T> a;
+	private EVertex<T> b;
 	
-	public Edge(EVertex<?> a, EVertex<?> b) {
+	public Edge(EVertex<T> a, EVertex<T> b) {
 		this.a = a;
 		this.b = b;
 	}
 
-	public EVertex<?> getA() {
+	public EVertex<T> getA() {
 		return this.a;
 	}
 
-	public EVertex<?> getB() {
+	public EVertex<T> getB() {
 		return this.b;
+	}
+	
+	public String toString() {
+		return "{" + this.a + "," + this.b + "}";
 	}
 }
