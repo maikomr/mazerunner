@@ -2,19 +2,30 @@ package graph;
 
 public class Edge {
 	
-	private Node<?> a;
-	private Node<?> b;
+	private EVertex<?> a;
+	private EVertex<?> b;
+	public int id;
 	
-	public Edge(Node<?> a, Node<?> b) {
+	public Edge(EVertex<?> a, EVertex<?> b, int id) {
 		this.a = a;
 		this.b = b;
+		this.id = id;
 	}
 
-	public Node<?> getA() {
+	public EVertex<?> getA() {
 		return this.a;
 	}
 
-	public Node<?> getB() {
+	public EVertex<?> getB() {
 		return this.b;
-	}	
+	}
+	
+	public int getId() {
+		return this.id;
+	}
+	
+	public boolean equals(Object obj) {
+		return obj instanceof Edge
+				&& ((Edge) obj).id == this.id;
+	}
 }
