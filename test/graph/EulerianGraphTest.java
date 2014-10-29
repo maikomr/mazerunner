@@ -43,6 +43,18 @@ public class EulerianGraphTest {
 	}
 
 	@Test
+	public void shouldNotAddDifferentVertexObjectsWithTheSameValue() {
+		EVertex<Character> vertex = new EVertex<>('a');
+		eGraph.addVertex(vertex);
+		eGraph.addVertex(new EVertex<>('a'));
+
+		int expectedOrder = 1;
+		int actualOrder = eGraph.V();
+
+		assertEquals(expectedOrder, actualOrder);
+	}
+	
+	@Test
 	public void shouldCreateAnEdgeFromStoredVertices() {
 		EVertex<Character> a = new EVertex<>('a');
 		EVertex<Character> b = new EVertex<>('b');
@@ -114,5 +126,34 @@ public class EulerianGraphTest {
 		
 		assertEquals(a1, b1);
 		assertEquals(a2, b2);
+	}
+	
+	@Test
+	public void shouldReadFromFile() {
+		eGraph = GraphFactory.readEulerianGraphFromFile("examples/eulerianCycles.txt");
+		
+		int expectedSize = 9;
+		int actualSize = eGraph.E();
+		
+		assertEquals(expectedSize, actualSize);
+		
+		int expectedOrder = 5;
+		int actualOrder = eGraph.V();
+		
+		assertEquals(expectedOrder, actualOrder);
+	}
+	
+	@Test
+	public void shouldBeEulerianCycle() {
+		eGraph = GraphFactory.readEulerianGraphFromFile("examples/eulerianCycles.txt");
+		
+		assertTrue(eGraph.isEulerian());
+	}
+	
+	@Test
+	public void shouldBeEulerianPath() {
+		eGraph = GraphFactory.readEulerianGraphFromFile("examples/eulerianPath.txt");
+		
+		assertTrue(eGraph.isEulerian());
 	}
 }

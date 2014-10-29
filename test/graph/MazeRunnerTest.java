@@ -12,12 +12,12 @@ import org.junit.Test;
 public class MazeRunnerTest {
 
 	private MazeRunner mazeRunner;
-	private AdjacencyListGraphFactory graphFactory;
+	private GraphFactory graphFactory;
 	
 	@Before
 	public void setUp() throws Exception {
 		mazeRunner = new MazeRunner();
-		graphFactory = new AdjacencyListGraphFactory();
+		graphFactory = new GraphFactory();
 	}
 
 	@After

@@ -33,4 +33,9 @@ public class EVertex<T> {
 	public String toString() {
 		return String.valueOf(this.value);
 	}
+	
+	public boolean equals(Object obj) {
+		return obj instanceof EVertex
+				&& ((EVertex<?>)obj).value == this.value;
+	}
 }
