@@ -56,4 +56,63 @@ public class EulerianGraphTest {
 		
 		assertEquals(expectedSize, actualSize);
 	}
+	
+	@Test
+	public void shouldCreateAnEdgeFromNonStoredVertices() {
+		EVertex<Character> a = new EVertex<>('a');
+		EVertex<Character> b = new EVertex<>('b');
+		
+		assertTrue(eGraph.addEdge(a, b));
+		
+		int expectedSize = 1;
+		int actualSize = eGraph.E();
+		
+		assertEquals(expectedSize, actualSize);
+	}
+	
+	@Test
+	public void shouldCreateTwoEdgeFromTwoDifferentVertices() {
+		EVertex<Character> a = new EVertex<>('a');
+		EVertex<Character> b = new EVertex<>('b');
+		
+		assertTrue(eGraph.addEdge(a, b));
+		assertTrue(eGraph.addEdge(b, a));
+		
+		int expectedSize = 2;
+		int actualSize = eGraph.E();
+		
+		assertEquals(expectedSize, actualSize);
+	}
+	
+	@Test
+	public void eachVertexShouldHaveTwoDifferentAdjacentEdges() {
+		EVertex<Character> a = new EVertex<>('a');
+		EVertex<Character> b = new EVertex<>('b');
+		
+		assertTrue(eGraph.addEdge(a, b));
+		assertTrue(eGraph.addEdge(b, a));
+		
+		Edge a1 = a.getNeighbors().get(0);
+		Edge a2 = a.getNeighbors().get(1);
+		
+		assertNotEquals(a1, a2);
+	}
+	
+	@Test
+	public void bothVertexShouldShareAdjacentEdges() {
+		EVertex<Character> a = new EVertex<>('a');
+		EVertex<Character> b = new EVertex<>('b');
+		
+		assertTrue(eGraph.addEdge(a, b));
+		assertTrue(eGraph.addEdge(b, a));
+		
+		Edge a1 = a.getNeighbors().get(0);
+		Edge a2 = a.getNeighbors().get(1);
+		
+		Edge b1 = b.getNeighbors().get(0);
+		Edge b2 = b.getNeighbors().get(1);
+		
+		assertEquals(a1, b1);
+		assertEquals(a2, b2);
+	}
 }
