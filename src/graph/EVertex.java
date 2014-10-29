@@ -1,5 +1,6 @@
 package graph;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EVertex<T> {
@@ -9,6 +10,7 @@ public class EVertex<T> {
 	
 	public EVertex(T value) {
 		this.value = value;
+		this.edges = new ArrayList<>();
 	}
 
 	public T getValue() {
@@ -20,11 +22,15 @@ public class EVertex<T> {
 	}
 
 	public boolean addAdjacent(EVertex<T> adjacent) {
-		
-		return false;
+		Edge edge = new Edge(this, adjacent);
+		return this.edges.add(edge) && adjacent.edges.add(edge);
 	}
 
 	public List<Edge> getNeighbors() {
 		return this.edges;
+	}
+	
+	public String toString() {
+		return String.valueOf(this.value);
 	}
 }
