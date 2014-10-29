@@ -27,12 +27,12 @@ public class MazeRunnerTest {
 	}
 	
 	@Test
-	public void shouldReturnHamiltonPathFromSimpleGraph() {
+	public void shouldReturnHamiltonPathsFromSimpleGraph() {
 		AdjacencyListGraph<Character> graph;
 		graph = graphFactory.readGraphFromFile("examples/simpleGraph.txt");
 
 		List<Stack<Node<Character>>> paths;
-		paths = mazeRunner.hamiltonPath(graph);
+		paths = mazeRunner.hamiltonPaths(graph);
 		
 		int expectedPathsCount = 8;
 		int actualPathsCount = paths.size();
@@ -41,12 +41,12 @@ public class MazeRunnerTest {
 	}
 
 	@Test
-	public void shouldReturnHamiltonPathWithLoops() {
+	public void shouldReturnHamiltonPathsWithLoops() {
 		AdjacencyListGraph<Character> graph;
 		graph = graphFactory.readGraphFromFile("examples/loopyGraph.txt");
 
 		List<Stack<Node<Character>>> paths;
-		paths = mazeRunner.hamiltonPath(graph);
+		paths = mazeRunner.hamiltonPaths(graph);
 		
 		int expectedPathsCount = 8;
 		int actualPathsCount = paths.size();
@@ -55,14 +55,68 @@ public class MazeRunnerTest {
 	}
 	
 	@Test
-	public void shouldReturnHamiltonPathFromMultiGraph() {
+	public void shouldReturnHamiltonPathsFromMultiGraph() {
 		AdjacencyListGraph<Character> graph;
 		graph = graphFactory.readGraphFromFile("examples/multiGraph.txt");
 
 		List<Stack<Node<Character>>> paths;
-		paths = mazeRunner.hamiltonPath(graph);
+		paths = mazeRunner.hamiltonPaths(graph);
 		
 		int expectedPathsCount = 16;
+		int actualPathsCount = paths.size();
+		
+		assertEquals(expectedPathsCount, actualPathsCount);
+	}
+	
+	@Test
+	public void shouldReturnHamiltonPathsStartingAtAnSpecificNode() {
+		AdjacencyListGraph<Character> graph;
+		graph = graphFactory.readGraphFromFile("examples/multiGraph.txt");
+
+		List<Stack<Node<Character>>> paths;
+		paths = mazeRunner.hamiltonPathStartingAt(graph, graph.findNode('d'));
+		
+		int expectedPathsCount = 4;
+		int actualPathsCount = paths.size();
+		
+		assertEquals(expectedPathsCount, actualPathsCount);
+	}
+	
+	@Test
+	public void shouldNotReturnAnyHamiltonPathsStartingAtNodeA() {
+		AdjacencyListGraph<Character> graph;
+		graph = graphFactory.readGraphFromFile("examples/multiGraph.txt");
+
+		List<Stack<Node<Character>>> paths;
+		paths = mazeRunner.hamiltonPathStartingAt(graph, graph.findNode('a'));
+		
+		int expectedPathsCount = 0;
+		int actualPathsCount = paths.size();
+		
+		assertEquals(expectedPathsCount, actualPathsCount);
+	}
+	
+	@Test
+	public void testMazeWithOuterdoors() {
+		AdjacencyListGraph<Character> graph;
+		graph = graphFactory.readGraphFromFile("examples/mazeGraphOuter.txt");
+		List<Stack<Node<Character>>> paths;
+		paths = mazeRunner.hamiltonPaths(graph);
+		
+		int expectedPathsCount = 2;
+		int actualPathsCount = paths.size();
+		
+		assertEquals(expectedPathsCount, actualPathsCount);
+	}
+	
+	@Test
+	public void testMazeClosingOuterdoors() {
+		AdjacencyListGraph<Character> graph;
+		graph = graphFactory.readGraphFromFile("examples/mazeGraph.txt");
+		List<Stack<Node<Character>>> paths;
+		paths = mazeRunner.hamiltonPaths(graph);
+		
+		int expectedPathsCount = 0;
 		int actualPathsCount = paths.size();
 		
 		assertEquals(expectedPathsCount, actualPathsCount);
